@@ -26,7 +26,7 @@ While there are few models that specifically model squash, there are some applic
 The proposed model uses a 3D Markov chain to predict the winner of a squash game. A Markov chain is well suited to this problem because the rules of squash can easily be encoded as a state machine (Figure 1). A standard squash match is played as a best of 5 games, with each game to 11 points. However, like tennis, a player must win by two points to win a match. For simplicity of calculations, we will only model one game and reset the game back to the start if it reaches a tiebreak. Figure 1 below shows the 2D finite state machine that encodes these rules.
 
 **Figure 1**  
-![Simple FSA that describes the flow of a Squash match with 11-point scoring.](game_chain.gv.png)
+<img src="game_chain.gv.png" alt="Simple FSA that describes the flow of a Squash match with 11-point scoring." width="400" />
 
 This simple state machine will be the basis for the new 3D Markov chain that incorporates players' mental states. The explanation of this new model has been broken up into two sections:  
 1. An explanation of the graphical structure of the Markov chain.  
@@ -54,34 +54,24 @@ This section will outline the formulas used to create the transition probabiliti
 - \( M_R \) is the mental range, which describes the number of levels.
 
 ### Start Node → (0,0,m)
-\[
-\mathds{P}(0,0,m) = \frac{1}{M_r}
-\]
+$P(0,0,m) = \frac{1}{M_r}$
 The start node is not a part of the game structure but was added to model the differing mental states going into a match. For example, say a player is about to play a long-time rival and is very nervous. His mental state from point 0-0 might favor the opponent. We assume that we are equally likely to start a match at any level.
 
 ### Win Nodes → Start Node
-\[
-\mathds{P}(Start Node) = 1
-\]
+$P(Start Node) = 1$
 The probability of going to the start node is 100\%, as there are no other nodes to go to. This transition is only included in the chain to make the graph circular. This allows the model to reset itself after each game.
 
 ### Game Nodes → Win Nodes
-\[
-\mathds{P}(P1_{Wins}) = P1 + M_e \times \biggl(L_c - \frac{1 + M_r}{2}\biggr)
-\]  
-\[
-\mathds{P}(P2_{Wins}) = P2 - M_e \times \biggl(L_c - \frac{1 + M_r}{2}\biggr)
-\]
+$P(P1_{Wins}) = P1 + M_e \times \biggl(L_c - \frac{1 + M_r}{2}\biggr)$  
+
+$P(P2_{Wins}) = P2 - M_e \times \biggl(L_c - \frac{1 + M_r}{2}\biggr)$
 The probability of either player winning at any point is \(P1\) or \(P2\). However, these values are augmented by the current level and mental effect. Thus, to calculate the new probability, we calculate the current level, multiply it by the mental effect, and then add or subtract it from the original probability. The result is the probability of transitioning to the new node.
 
 ### Game Nodes → Game Nodes
-\[
-\text{P(x+1,y)} \;=\; \frac{ \bigl( P1 + M_e \times (L_c - \frac{1+M_r}{2}) \bigr) \times \frac{1}{1 + |L_c - L_n|} }{ \sum_{M_r} \frac{1}{1 + |L_c - L_n|} }
-\]
+$\text{P(x+1,y)} = \frac{ \bigl( P1 + M_e \times (L_c - \frac{1+M_r}{2}) \bigr) \times \frac{1}{1 + |L_c - L_n|} }{ \sum_{M_r} \frac{1}{1 + |L_c - L_n|} }$
 
-\[
-\text{P(x,y+1)} \;=\; \frac{ \bigl( P2 - M_e \times (L_c - \frac{1+M_r}{2}) \bigr) \times \frac{1}{1 + |L_c - L_n|} }{ \sum_{M_r} \frac{1}{1 + |L_c - L_n|} }
-\]
+$\text{P(x,y+1)} = \frac{ \bigl( P2 - M_e \times (L_c - \frac{1+M_r}{2}) \bigr) \times \frac{1}{1 + |L_c - L_n|} }{ \sum_{M_r} \frac{1}{1 + |L_c - L_n|} }$
+
 Going from one game node to another is the most complicated case. This is because we must calculate the probability of either player winning and then calculate the probability of changing levels. To calculate the probability of either player winning, we use the same formula as in the last section. Then, to calculate changing levels, we use the formula \(\frac{1}{1 + |L_c - L_n|}\), which lowers the probability of changing levels the further away the next level is. We then normalize the probabilities to ensure that they sum to 1 in order to ensure the transition table remains stochastic.
 
 ## Calculations
