@@ -41,7 +41,7 @@ In the new 3D graph, each level represents a different mental state. The higher 
 ![Side view of the 3D model for the transition from the score (0,0) to the score (1,0). If the player wins the point, the mental state can jump from the current level to any other level in the chain.](side.png)
 
 **Figure 3**  
-![Shows the chain and encodes the match. Each green edge represents a connection between a point in the game, for example ((0,0) → (0,1)). The red and blue edges are connections to the winning nodes, and the orange/pink edges "reset" the game by connecting the winning nodes back to the start.](3D.png)
+![Shows the chain and encodes the match. Each green edge represents a connection between a point in the game, for example ((0,0) → (0,1)). The red and blue edges are connections to the winning nodes, and the orange/pink edges "reset" the game by connecting the winning nodes back to the start.](game_change.gif)
 
 ## Equations
 This section will outline the formulas used to create the transition probabilities. These probabilities will allow the graph outlined in the previous section to be converted into a transition matrix.
@@ -97,7 +97,7 @@ Once the graph and transition probabilities have been computed, the match's outc
 Using the transition probabilities and graph structure, an example random walk was defined. The random walk does not help with calculations but provides an example of how the model works.
 
 **Figure 4**  
-![Random walk visualization. Click here if the animation does not load.](random_walk.png)
+![Random walk visualization. Click here if the animation does not load.](random_walk.gif)
 
 ---
 
@@ -108,7 +108,7 @@ Different simulations were run using the model described above and the code in t
 While not a novel discovery, the model confirms a long-held theory that the weaker player's optimal strategy is to try to devolve the match into chaos. This was discovered by calculating the "game shape." A simulation was run for every combination of P and mental effect, resulting in Figure 5.
 
 **Figure 5**  
-![The X-axis is the probability that P1 wins a point, the Y-axis is the probability that P1 wins the entire game, and the Z-axis is the mental effect. If the animation does not work, click here.](scatter/anim_0.png "Animation across frames 0 to 30")
+![The X-axis is the probability that P1 wins a point, the Y-axis is the probability that P1 wins the entire game, and the Z-axis is the mental effect. If the animation does not work, click here.](3d_scatter.gif "Animation across frames 0 to 30")
 
 From the graph, it was observed that when the P1 probability was close to 0 or 1, the mental effect had a much larger effect on the outcome. For example, when P1 is 0.1 (P1 has a 10% chance of winning any point) and the mental effect is 0.1, player 1 only has a 1.148% chance of winning the game. However, if the mental effect is raised to 0.99, P1 now has a 17.5% chance of winning the game. Importantly, the chance of P1 winning the game is now higher than their chance of winning an individual point. However, when P1 and P2 are both 0.5, the mental effect has no effect on the percent chance of either player winning. This confirms the theory that the weaker player's optimal strategy is to try to devolve the match into chaos.
 
