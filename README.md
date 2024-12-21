@@ -41,7 +41,7 @@ In the new 3D graph, each level represents a different mental state. The higher 
 ![Side view of the 3D model for the transition from the score (0,0) to the score (1,0). If the player wins the point, the mental state can jump from the current level to any other level in the chain.](side.png)
 
 **Figure 3**  
-![Shows the chain and encodes the match. Each green edge represents a connection between a point in the game, for example ((0,0) → (0,1)). The red and blue edges are connections to the winning nodes, and the orange/pink edges "reset" the game by connecting the winning nodes back to the start.](game_change.gif)
+![Shows the chain and encodes the match. Each green edge represents a connection between a point in the game, for example ((0,0) → (0,1)). The red and blue edges are connections to the winning nodes, and the orange/pink edges "reset" the game by connecting the winning nodes back to the start.](game_chain.gif)
 
 ## Equations
 This section will outline the formulas used to create the transition probabilities. These probabilities will allow the graph outlined in the previous section to be converted into a transition matrix.
