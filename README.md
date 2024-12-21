@@ -1,7 +1,5 @@
----
-title: "Predicting Squash Outcomes with a 3D Markov Chain"
-author: "Oliver Eielson"
-date: "April 2024"
+## Predicting Squash Outcomes with a 3D Markov Chain
+### Oliver Eielson
 ---
 
 # Abstract
