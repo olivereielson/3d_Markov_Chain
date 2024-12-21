@@ -1,6 +1,8 @@
 ## Predicting Squash Outcomes with a 3D Markov Chain
 ### Oliver Eielson
 ---
+[View the PDF](3d_markov_chain.pdf)
+---
 
 # Abstract
 This study aims to create a predictive model for squash matches that integrates players' mental states into a 3D Markov chain[^1].  
